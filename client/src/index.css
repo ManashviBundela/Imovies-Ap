@@ -1,0 +1,381 @@
+/* ===================================================================
+   IMOVIES - CINEMA INSPIRED DARK THEME STYLES
+   =================================================================== */
+
+:root {
+  --im-bg-dark: #090d16;
+  --im-bg-surface: #0f172a;
+  --im-bg-card: #162032;
+  --im-bg-card-hover: #1e293b;
+  --im-primary: #e11d48;
+  --im-primary-hover: #f43f5e;
+  --im-primary-glow: rgba(225, 29, 72, 0.4);
+  --im-gold: #f59e0b;
+  --im-silver: #94a3b8;
+  --im-vip: #8b5cf6;
+  --im-text-primary: #f8fafc;
+  --im-text-secondary: #94a3b8;
+  --im-text-muted: #64748b;
+  --im-border: rgba(255, 255, 255, 0.08);
+  --im-border-glow: rgba(225, 29, 72, 0.25);
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--im-bg-dark);
+  color: var(--im-text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--im-bg-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--im-primary);
+}
+
+/* Glassmorphism Card */
+.cinema-card {
+  background: var(--im-bg-card);
+  border: 1px solid var(--im-border);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.cinema-card:hover {
+  border-color: var(--im-border-glow);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(225, 29, 72, 0.15);
+}
+
+/* Buttons */
+.btn-cinema {
+  background: linear-gradient(135deg, #e11d48 0%, #be123c 100%);
+  color: #ffffff;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1.4rem;
+  letter-spacing: 0.01em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 15px rgba(225, 29, 72, 0.35);
+}
+
+.btn-cinema:hover {
+  background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(225, 29, 72, 0.5);
+}
+
+.btn-cinema:active {
+  transform: translateY(0);
+}
+
+.btn-cinema-outline {
+  background: transparent;
+  color: #ffffff;
+  font-weight: 600;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 0.6rem 1.4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.25s ease;
+}
+
+.btn-cinema-outline:hover {
+  border-color: var(--im-primary);
+  color: var(--im-primary-hover);
+  background: rgba(225, 29, 72, 0.08);
+}
+
+/* Movie Card Poster Aspect Ratio */
+.movie-poster-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 145%; /* 2:3 aspect ratio */
+  overflow: hidden;
+  background-color: #0b1120;
+}
+
+.movie-poster-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.cinema-card:hover .movie-poster-img {
+  transform: scale(1.05);
+}
+
+.poster-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60%;
+  background: linear-gradient(to top, rgba(9, 13, 22, 0.95) 0%, rgba(9, 13, 22, 0) 100%);
+  pointer-events: none;
+}
+
+/* Badges */
+.badge-rating {
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: #f59e0b;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.badge-genre {
+  background: rgba(255, 255, 255, 0.08);
+  color: #cbd5e1;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+}
+
+.badge-format {
+  background: rgba(225, 29, 72, 0.15);
+  border: 1px solid rgba(225, 29, 72, 0.4);
+  color: #f43f5e;
+  font-weight: 600;
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
+
+/* Cinema Curved Screen */
+.cinema-screen-container {
+  perspective: 600px;
+  text-align: center;
+  margin: 1.5rem auto 2.5rem;
+  max-width: 600px;
+}
+
+.cinema-screen-curve {
+  height: 16px;
+  width: 100%;
+  background: linear-gradient(180deg, #38bdf8 0%, rgba(56, 189, 248, 0) 100%);
+  border-top: 3px solid #7dd3fc;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  box-shadow: 0 10px 30px rgba(56, 189, 248, 0.35);
+  margin-bottom: 0.6rem;
+}
+
+.cinema-screen-text {
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  color: #94a3b8;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Seat Elements */
+.seat-btn {
+  width: 32px;
+  height: 30px;
+  border-radius: 6px 6px 3px 3px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: #1e293b;
+  color: #94a3b8;
+  font-size: 0.7rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  user-select: none;
+  padding: 0;
+}
+
+.seat-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  border-color: #f43f5e;
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(225, 29, 72, 0.3);
+}
+
+.seat-btn.selected {
+  background: #e11d48 !important;
+  border-color: #f43f5e !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 12px rgba(225, 29, 72, 0.7);
+  transform: scale(1.08);
+}
+
+.seat-btn.booked {
+  background: #0f172a !important;
+  border-color: #334155 !important;
+  color: #475569 !important;
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.seat-btn.silver-tier {
+  border-color: rgba(148, 163, 184, 0.3);
+}
+
+.seat-btn.gold-tier {
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+.seat-btn.vip-tier {
+  border-color: rgba(139, 92, 246, 0.4);
+}
+
+/* Ticket Stub Design */
+.ticket-stub {
+  background: #162032;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+}
+
+.ticket-notch-left, .ticket-notch-right {
+  position: absolute;
+  top: 60%;
+  width: 24px;
+  height: 24px;
+  background-color: var(--im-bg-dark);
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.ticket-notch-left {
+  left: -12px;
+}
+
+.ticket-notch-right {
+  right: -12px;
+}
+
+.ticket-divider {
+  border-top: 2px dashed rgba(255, 255, 255, 0.15);
+  margin: 1.5rem 0;
+}
+
+/* Form Controls Dark Style */
+.cinema-input {
+  background-color: #0b1120 !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  color: #f8fafc !important;
+  border-radius: 8px !important;
+  padding: 0.7rem 1rem !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cinema-input:focus {
+  border-color: var(--im-primary) !important;
+  box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.25) !important;
+  outline: none !important;
+}
+
+.cinema-input::placeholder {
+  color: #64748b;
+}
+
+/* Nav Link */
+.nav-cinema-link {
+  color: #cbd5e1;
+  font-weight: 500;
+  padding: 0.5rem 0.9rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.nav-cinema-link:hover, .nav-cinema-link.active {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Hero Carousel */
+.hero-backdrop {
+  position: relative;
+  min-height: 540px;
+  display: flex;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(9, 13, 22, 0.95) 0%, rgba(9, 13, 22, 0.7) 50%, rgba(9, 13, 22, 0.4) 100%);
+}
+
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  .navbar, .footer, .btn, .no-print {
+    display: none !important;
+  }
+  .ticket-stub {
+    box-shadow: none !important;
+    border: 2px solid #000000 !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  .ticket-stub * {
+    color: #000000 !important;
+  }
+}

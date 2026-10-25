@@ -1,0 +1,258 @@
+{
+  "info": {
+    "_postman_id": "imovies-mern-api-collection",
+    "name": "IMovies - Movie Ticket Booking API",
+    "description": "Comprehensive Postman API collection for IMovies MERN Stack Movie Ticket Booking System.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000/api",
+      "type": "string"
+    },
+    {
+      "key": "authToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "adminToken",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Authentication",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test Customer\",\n  \"email\": \"testcustomer@example.com\",\n  \"password\": \"Password@123\",\n  \"phone\": \"+1 555-0100\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/register", "host": ["{{baseUrl}}"], "path": ["auth", "register"] }
+          }
+        },
+        {
+          "name": "Login User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.token) {",
+                  "    pm.collectionVariables.set('authToken', jsonData.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"alex@example.com\",\n  \"password\": \"Password@123\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] }
+          }
+        },
+        {
+          "name": "Login Admin",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.token) {",
+                  "    pm.collectionVariables.set('adminToken', jsonData.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@imovies.com\",\n  \"password\": \"Admin@123\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] }
+          }
+        },
+        {
+          "name": "Get Profile (Me)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
+            "url": { "raw": "{{baseUrl}}/auth/me", "host": ["{{baseUrl}}"], "path": ["auth", "me"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Movies",
+      "item": [
+        {
+          "name": "Get All Movies (with Search & Filters)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/movies?search=&genre=All&status=Now Showing&sortBy=rating",
+              "host": ["{{baseUrl}}"],
+              "path": ["movies"],
+              "query": [
+                { "key": "search", "value": "" },
+                { "key": "genre", "value": "All" },
+                { "key": "status", "value": "Now Showing" },
+                { "key": "sortBy", "value": "rating" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Featured Hero Movies",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/movies/featured", "host": ["{{baseUrl}}"], "path": ["movies", "featured"] }
+          }
+        },
+        {
+          "name": "Get Filter Metadata (Genres & Languages)",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/movies/meta/filters", "host": ["{{baseUrl}}"], "path": ["movies", "meta", "filters"] }
+          }
+        },
+        {
+          "name": "Get Movie by ID",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/movies/{{movieId}}", "host": ["{{baseUrl}}"], "path": ["movies", "{{movieId}}"] }
+          }
+        },
+        {
+          "name": "Admin: Create Movie",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Interstellar: Beyond\",\n  \"description\": \"A continuation of human exploration into the fifth dimension.\",\n  \"posterUrl\": \"https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=600&q=80\",\n  \"bannerUrl\": \"https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=1600&q=80\",\n  \"genre\": [\"Sci-Fi\", \"Drama\"],\n  \"duration\": 175,\n  \"language\": \"English\",\n  \"releaseDate\": \"2026-12-01\",\n  \"rating\": 9.1,\n  \"status\": \"Now Showing\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/movies", "host": ["{{baseUrl}}"], "path": ["movies"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Showtimes & Seats",
+      "item": [
+        {
+          "name": "Get Showtimes for Movie (Grouped by Cinema)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/showtimes/movie/{{movieId}}?date=2026-10-26",
+              "host": ["{{baseUrl}}"],
+              "path": ["showtimes", "movie", "{{movieId}}"],
+              "query": [{ "key": "date", "value": "2026-10-26" }]
+            }
+          }
+        },
+        {
+          "name": "Get Showtime & Live Seat Map by ID",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/showtimes/{{showtimeId}}", "host": ["{{baseUrl}}"], "path": ["showtimes", "{{showtimeId}}"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Bookings",
+      "item": [
+        {
+          "name": "Create Atomic Booking",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"showtimeId\": \"{{showtimeId}}\",\n  \"seats\": [\n    { \"seatNumber\": \"D4\", \"tier\": \"Gold\" },\n    { \"seatNumber\": \"D5\", \"tier\": \"Gold\" }\n  ],\n  \"paymentMethod\": \"Card\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/bookings", "host": ["{{baseUrl}}"], "path": ["bookings"] }
+          }
+        },
+        {
+          "name": "Get My Bookings",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
+            "url": { "raw": "{{baseUrl}}/bookings/my-bookings", "host": ["{{baseUrl}}"], "path": ["bookings", "my-bookings"] }
+          }
+        },
+        {
+          "name": "Get Booking Details by ID",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
+            "url": { "raw": "{{baseUrl}}/bookings/{{bookingId}}", "host": ["{{baseUrl}}"], "path": ["bookings", "{{bookingId}}"] }
+          }
+        },
+        {
+          "name": "Cancel Booking (Seat Release)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reason\": \"Change of plans\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/bookings/{{bookingId}}/cancel", "host": ["{{baseUrl}}"], "path": ["bookings", "{{bookingId}}", "cancel"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Admin Dashboard",
+      "item": [
+        {
+          "name": "Get Dashboard Statistics",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "url": { "raw": "{{baseUrl}}/admin/stats", "host": ["{{baseUrl}}"], "path": ["admin", "stats"] }
+          }
+        },
+        {
+          "name": "Admin: Get All Bookings",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "url": { "raw": "{{baseUrl}}/bookings", "host": ["{{baseUrl}}"], "path": ["bookings"] }
+          }
+        }
+      ]
+    }
+  ]
+}
