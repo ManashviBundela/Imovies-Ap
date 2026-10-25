@@ -13,7 +13,7 @@ const Footer = () => {
       <div className="container">
         <div className="row g-4 pb-4 border-bottom border-secondary border-opacity-25">
           {/* Brand & Mission */}
-          <div className="col-lg-4 col-md-6">
+          <div className="col-lg-5 col-md-12 mb-2 mb-lg-0">
             <div className="d-flex align-items-center gap-2 mb-3">
               <div
                 className="d-flex align-items-center justify-content-center rounded-3"
@@ -29,7 +29,7 @@ const Footer = () => {
                 I<span style={{ color: '#e11d48' }}>Movies</span>
               </span>
             </div>
-            <p className="text-secondary small mb-3" style={{ lineHeight: '1.7' }}>
+            <p className="text-secondary small mb-3" style={{ lineHeight: '1.7', maxWidth: '440px' }}>
               Movie Ticket Booking Made Simple. Discover the latest blockbusters, experience
               IMAX and 4DX audio-visuals, pick your favorite cinema seats, and enjoy seamless
               digital ticketing anytime, anywhere.
@@ -51,7 +51,7 @@ const Footer = () => {
           </div>
 
           {/* Quick Links */}
-          <div className="col-lg-2 col-md-6 col-6">
+          <div className="col-lg-3 col-md-6 col-6 ms-lg-auto">
             <h6 className="text-white fw-bold mb-3 text-uppercase small tracking-wider">
               Quick Links
             </h6>
@@ -106,28 +106,6 @@ const Footer = () => {
                 <i className="bi bi-cup-straw text-danger me-2"></i> In-seat Dining & Café
               </li>
             </ul>
-          </div>
-
-          {/* Security & Project Badge */}
-          <div className="col-lg-3 col-md-6">
-            <h6 className="text-white fw-bold mb-3 text-uppercase small tracking-wider">
-              College Capstone
-            </h6>
-            <div
-              className="p-3 rounded-3"
-              style={{
-                backgroundColor: '#0f172a',
-                border: '1px solid rgba(255, 255, 255, 0.08)'
-              }}
-            >
-              <div className="d-flex align-items-center gap-2 mb-2">
-                <span className="badge bg-danger">MERN Stack</span>
-                <span className="badge bg-secondary">REST API</span>
-              </div>
-              <p className="text-muted small mb-0">
-                Built with React, Express, Node.js, and MongoDB with atomic seat reservations and JWT security.
-              </p>
-            </div>
           </div>
         </div>
 
